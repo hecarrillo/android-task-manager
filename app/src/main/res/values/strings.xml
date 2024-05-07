@@ -1,0 +1,30 @@
+<resources>
+    <string name="app_name">task_manager</string>
+    <string name="todo">TODO</string>
+    <string name="addTask" />
+    <string name="add_task" />
+    <!-- Strings for task details -->
+    <string name="task_name">Nombre de la Tarea</string>
+    <string name="task_description">Descripción</string>
+    <string name="select_date">Seleccionar Fecha</string>
+    <string name="select_time">Seleccionar Hora</string>
+    <string name="save_task">Guardar Tarea</string>
+    <string name="select_contact">Seleccionar Contacto</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+
+    <!-- Array for reminder options -->
+    <string-array name="reminder_options">
+        <item>10 minutos antes</item>
+        <item>1 día antes</item>
+        <item>Sin recordatorio</item>
+    </string-array>
+
+    <!-- Array for task categories -->
+    <string-array name="task_categories">
+        <item>Personal</item>
+        <item>Trabajo</item>
+        <item>Familia</item>
+        <item>Otras</item>
+    </string-array>
+</resources>
