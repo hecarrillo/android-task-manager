@@ -10,9 +10,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:layout_anchorGravity="top"/>
+        android:background="@color/azul_fuerte"
+        app:layout_anchorGravity="top"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <FrameLayout
         android:id="@+id/content_frame"
@@ -26,7 +26,19 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
-        android:src="@drawable/ic_add_task"
         android:contentDescription="@string/add_task"
-        android:tint="@android:color/white" />
+        android:src="@drawable/ic_add_task"
+        android:tint="@android:color/white"
+        app:backgroundTint="@color/azul_claro" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
+        android:text="Administrador de tareas"
+        android:textColor="@color/azul_claro"
+        android:textSize="26sp"
+        app:layout_anchor="@+id/toolbar"
+        app:layout_anchorGravity="center" />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
