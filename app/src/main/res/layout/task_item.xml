@@ -49,7 +49,7 @@
             android:id="@+id/button_delete_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
-            android:backgroundTint="@color/teal_200"/>
+            android:backgroundTint="#F44336"
+            android:text="Delete" />
     </LinearLayout>
 </LinearLayout>
