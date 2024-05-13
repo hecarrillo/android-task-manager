@@ -4,4 +4,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="purple_200">#E040FB</color>
+    <color name="azul_fuerte">#222E68</color>
+    <color name="azul_medio">#1A59D8</color>
+    <color name="azul_claro">#88ADF8</color>
 </resources>

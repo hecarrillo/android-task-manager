@@ -9,6 +9,16 @@
         android:orientation="vertical"
         android:padding="16dp">
 
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif-black"
+            android:text="Agregar tarea"
+            android:textAlignment="center"
+            android:textColor="@color/azul_fuerte"
+            android:textSize="24sp" />
+
         <EditText
             android:id="@+id/edit_text_task_name"
             android:layout_width="match_parent"
@@ -27,12 +37,14 @@
             android:id="@+id/button_choose_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/azul_medio"
             android:text="@string/select_date" />
 
         <Button
             android:id="@+id/button_choose_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/azul_medio"
             android:text="@string/select_time" />
 
         <Spinner
@@ -49,12 +61,14 @@
             android:id="@+id/button_choose_contact"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/azul_medio"
             android:text="@string/select_contact" />
 
         <Button
             android:id="@+id/button_save_task"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/azul_medio"
             android:text="@string/save_task" />
     </LinearLayout>
 </ScrollView>
