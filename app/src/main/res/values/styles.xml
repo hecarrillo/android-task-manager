@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="button">
+        <item name="iconTint">@color/azul_medio</item>
+        <item name="backgroundTint">@color/design_default_color_background</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:padding">0sp</item>
+        <item name="cornerRadius">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="calendarview">
+        <item name="colorPrimary">@color/azul_claro</item>
+        <item name="colorOnPrimary">@color/azul_claro</item>
+        <item name="android:textColorPrimary">#ff0000</item>
+        <item name="android:headerBackground">@color/azul_fuerte</item>
+    </style>
+</resources>

@@ -10,14 +10,19 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
 
 import java.util.Calendar;
 
@@ -29,6 +34,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
     private Spinner spinnerReminderOptions, spinnerCategory;
     private TaskDatabaseHelper dbHelper;
     private String selectedContactNumber = "";  // Almacena el número del contacto seleccionado
+    private TextView contText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +49,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         buttonChooseContact = findViewById(R.id.button_choose_contact);
         spinnerReminderOptions = findViewById(R.id.spinner_reminder_options);
         spinnerCategory = findViewById(R.id.spinner_category);
+        contText = findViewById(R.id.cont_text);
 
         dbHelper = new TaskDatabaseHelper(this);
 
@@ -50,6 +57,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         setUpDateAndTimePickers();
         setupContactPicker();
 
+        editTextTaskDescription.addTextChangedListener(new TextLengthWatcher());
         buttonSaveTask.setOnClickListener(v -> saveTask());
     }
 
@@ -96,6 +104,23 @@ public class AddEditTaskActivity extends AppCompatActivity {
             contactPickerIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
             startActivityForResult(contactPickerIntent, REQUEST_CONTACT);
         });
+    }
+
+    private class TextLengthWatcher implements TextWatcher {
+
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            int currentLength = s.length();
+            contText.setText(String.format(getString(R.string.character_count), currentLength));
+        }
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
     }
 
     @SuppressLint("Range")

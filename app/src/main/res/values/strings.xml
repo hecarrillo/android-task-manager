@@ -12,6 +12,9 @@
     <string name="select_contact">Seleccionar Contacto</string>
     <string name="delete">Delete</string>
     <string name="done">Done</string>
+    <string name="agregar_fecha">Agregar fecha</string>
+    <string name="agregar_tarea">Agregar tarea</string>
+    <string name="character_count">%d/60</string>
 
     <!-- Array for reminder options -->
     <string-array name="reminder_options">
