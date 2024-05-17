@@ -1,7 +1,8 @@
-<!-- res/layout/activity_add_edit_task.xml -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".AddEditTaskActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,10 +53,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <Spinner
-            android:id="@+id/spinner_category"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Spinner
+                android:id="@+id/spinner_category"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <Button
+                android:id="@+id/button_add_category"
+                android:layout_width="wrap_content"
+                android:text="@string/add_category"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/azul_claro" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/button_choose_contact"

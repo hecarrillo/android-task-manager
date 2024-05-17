@@ -1,9 +1,11 @@
 package com.example.task_manager;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -19,16 +21,18 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddEditTaskActivity extends AppCompatActivity {
     private static final int REQUEST_CONTACT = 1;
 
     private EditText editTextTaskName, editTextTaskDescription;
-    private Button buttonChooseDate, buttonChooseTime, buttonSaveTask, buttonChooseContact;
+    private Button buttonChooseDate, buttonChooseTime, buttonSaveTask, buttonChooseContact, buttonAddCategory;
     private Spinner spinnerReminderOptions, spinnerCategory;
     private TaskDatabaseHelper dbHelper;
-    private String selectedContactNumber = "";  // Almacena el número del contacto seleccionado
+    private String selectedContactNumber = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +45,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         buttonChooseTime = findViewById(R.id.button_choose_time);
         buttonSaveTask = findViewById(R.id.button_save_task);
         buttonChooseContact = findViewById(R.id.button_choose_contact);
+        buttonAddCategory = findViewById(R.id.button_add_category);
         spinnerReminderOptions = findViewById(R.id.spinner_reminder_options);
         spinnerCategory = findViewById(R.id.spinner_category);
 
@@ -51,6 +56,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         setupContactPicker();
 
         buttonSaveTask.setOnClickListener(v -> saveTask());
+        buttonAddCategory.setOnClickListener(v -> addNewCategory());
     }
 
     private void setUpSpinners() {
@@ -59,10 +65,35 @@ public class AddEditTaskActivity extends AppCompatActivity {
         reminderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerReminderOptions.setAdapter(reminderAdapter);
 
-        ArrayAdapter<CharSequence> categoryAdapter = ArrayAdapter.createFromResource(this,
-                R.array.task_categories, android.R.layout.simple_spinner_item);
+        // Load categories from the database
+        loadCategories();
+    }
+
+    private void loadCategories() {
+        List<String> categories = dbHelper.getAllCategories();
+        ArrayAdapter<String> categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerCategory.setAdapter(categoryAdapter);
+    }
+
+    private void addNewCategory() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Nueva Categoría");
+
+        final EditText input = new EditText(this);
+        builder.setView(input);
+
+        builder.setPositiveButton("Guardar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String categoryName = input.getText().toString();
+                dbHelper.addCategory(categoryName);
+                loadCategories();  // Reload categories to include the new one
+            }
+        });
+        builder.setNegativeButton("Cancelar", (dialog, which) -> dialog.cancel());
+
+        builder.show();
     }
 
     private void setUpDateAndTimePickers() {
@@ -104,6 +135,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CONTACT && resultCode == RESULT_OK) {
             Uri contactUri = data.getData();
+            assert contactUri != null;
             Cursor cursor = getContentResolver().query(contactUri, new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER}, null, null, null);
             if (cursor != null && cursor.moveToFirst()) {
                 selectedContactNumber = cursor.getString(cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
@@ -121,6 +153,8 @@ public class AddEditTaskActivity extends AppCompatActivity {
         String reminder = spinnerReminderOptions.getSelectedItem().toString();
         String category = spinnerCategory.getSelectedItem().toString();
 
+        long categoryId = dbHelper.ensureCategory(category);  // Ensure category and get its ID
+
         if (name.isEmpty() || description.isEmpty() || date.equals("Seleccionar Fecha") || time.equals("Seleccionar Hora")) {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
@@ -133,7 +167,7 @@ public class AddEditTaskActivity extends AppCompatActivity {
         values.put("date", date);
         values.put("time", time);
         values.put("reminder", reminder);
-        values.put("category", category);
+        values.put("category_id", categoryId);  // Use category ID instead of name
         values.put("contact", selectedContactNumber);
 
         long newRowId = db.insert("tasks", null, values);

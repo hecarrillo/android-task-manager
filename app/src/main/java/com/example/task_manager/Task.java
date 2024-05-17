@@ -7,25 +7,26 @@ public class Task {
     private String date;
     private String time;
     private String reminder;
-    private String category;
+    private int categoryId;  // ID de la categoría como clave foránea
+    private String categoryName;  // Nombre de la categoría para mostrar
     private String contact;
     private boolean done;
 
-    public Task() {
-    }
-
-    public Task(int id, String name, String description, String date, String time, String reminder, String category, String contact, boolean done) {
+    // Constructor con todos los campos, incluyendo categoryId y categoryName
+    public Task(int id, String name, String description, String date, String time, String reminder, int categoryId, String categoryName, String contact, boolean done) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.date = date;
         this.time = time;
         this.reminder = reminder;
-        this.category = category;
+        this.categoryId = categoryId;
+        this.categoryName = categoryName;
         this.contact = contact;
         this.done = done;
     }
 
+    // Getters y Setters
     public int getId() {
         return id;
     }
@@ -74,12 +75,20 @@ public class Task {
         this.reminder = reminder;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 
     public String getContact() {

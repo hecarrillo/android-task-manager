@@ -12,6 +12,11 @@
     <string name="select_contact">Seleccionar Contacto</string>
     <string name="delete">Delete</string>
     <string name="done">Done</string>
+    <string name="all_tasks">Todas las Tareas</string>
+    <string name="categories">Categorias</string>
+    <string name="calendar">Calendario</string>
+    <string name="enter_category_name">Nombre de Categoria</string>
+    <string name="add_category">Agregar Categoría</string>
 
     <!-- Array for reminder options -->
     <string-array name="reminder_options">
